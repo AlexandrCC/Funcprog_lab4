@@ -4,8 +4,8 @@
 "Робота з послідовностями та замиканнями"<br/>
 дисципліни "Вступ до функціонального програмування"
 </p>
-<p align="right"><b>Студент(-ка)</b>: Прізвище Ім'я По-батькові група</p>
-<p align="right"><b>Рік</b>: рік</p>
+<p align="right"><b>Студент</b>: Савельєв Олександр КВ-22</p>
+<p align="right"><b>Рік</b>: 2025</p>
 
 ## Загальне завдання
 1. Переписати алгоритм bubble sort, додавши ключові параметри `key` та `test`, щоб `key` обчислювався мінімальну кількість разів.
@@ -17,13 +17,6 @@
 
 ## Лістинг (функціональний підхід, `key`/`test`)
 ```lisp
-(defun bubble-sort-functional (lst &key (key #'identity) (test #'>))
-  "Функціональна реалізація bubble-sort.
-Параметри:
-  LST  – список для сортування.
-  KEY  – функція для отримання ключа порівняння (виконується один раз на елемент).
-  TEST – предикат, що визначає, чи потрібно міняти елементи місцями.
-         За замовчуванням #'>, що дає сортування за зростанням."
   (if (null lst)
       nil
       (labels
@@ -86,11 +79,6 @@
 ## Лістинг замикання `duplicate-elements-reducer`
 ```lisp
 (defun duplicate-elements-reducer (n &key (duplicate-p (constantly t)))
-  "Створює замикання-редюсер, яке дублює елементи n разів.
-Параметри:
-  N          – кількість копій елемента (1 = без дублювання).
-  DUPLICATE-P – предикат, що визначає, чи дублювати елемент.
-Повертає функцію (lambda (acc elem) ...) для використання з reduce."
   (lambda (acc elem)
     (if (funcall duplicate-p elem)
         (append acc (make-list n :initial-element elem))
@@ -113,7 +101,7 @@
   (check-duplicate-reducer-case "duplicate all elements ×2" 2 '(1 2 3) '(1 1 2 2 3 3))
   (check-duplicate-reducer-case "duplicate even elements ×3" 3 '(1 2 3) '(1 2 2 2 3) :predicate #'evenp)
   (check-duplicate-reducer-case "empty list" 2 '() '())
-  (check-duplicate-reducer-case "n = 1 (без дублювання)" 1 '(a b c) '(a b c))
+  (check-duplicate-reducer-case "n = 1" 1 '(a b c) '(a b c))
   (check-duplicate-reducer-case "predicate always NIL" 5 '(1 2 3) '(1 2 3) :predicate (constantly nil))
   (check-duplicate-reducer-case "duplicate only numbers > 10" 4 '(5 12 3 20) '(5 12 12 12 12 3 20 20 20 20) :predicate (lambda (x) (> x 10)))
 
